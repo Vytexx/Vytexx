@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,75 +10,87 @@
             background-color: #050505;
             color: white;
             font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            text-align: center;
         }
 
-        /* Cabecera con Neón */
         header {
-            padding: 40px;
-            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, #111, #050505);
         }
 
         h1 {
-            font-size: 3rem;
-            letter-spacing: 5px;
+            font-size: 3.5rem;
             text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
         }
 
         h1 span {
-            color: #00e5ff;
-            text-shadow: 0 0 15px #00e5ff;
+            color: #ffff00;
+            text-shadow: 0 0 20px #ffff00;
         }
 
-        /* Contenido de la sección */
-        .container {
-            max-width: 800px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .tech-list {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .tech-item {
-            border: 1px solid #333;
-            padding: 15px 25px;
-            border-radius: 8px;
+        .subtitle {
+            color: #555;
             font-family: monospace;
-            background: rgba(255,255,255,0.02);
+            margin-top: 10px;
+        }
+
+        /* Sección de Servicios */
+        .content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-box {
+            background: #111;
+            padding: 30px;
+            border-left: 4px solid #ffff00;
             transition: 0.3s;
+            text-align: left;
         }
 
-        .tech-item:hover {
-            border-color: #00e5ff;
-            color: #00e5ff;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+        .service-box:hover {
+            background: #1a1a1a;
+            transform: scale(1.02);
         }
 
-        /* Botón Volver */
-        .btn-back {
+        .service-box h3 {
+            color: #ffff00;
+            margin-top: 0;
+        }
+
+        .service-box p {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Lista de Tecnologías */
+        .tech-stack {
             margin-top: 50px;
-            text-decoration: none;
+            padding: 40px;
+            background: rgba(255, 255, 0, 0.02);
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin: 50px 0;
+            padding: 12px 30px;
+            border: 1px solid #555;
             color: #888;
-            border: 1px solid #444;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 0.9rem;
+            text-decoration: none;
             transition: 0.4s;
         }
 
         .btn-back:hover {
-            color: #fff;
-            border-color: #fff;
-            background: rgba(255,255,255,0.1);
+            border-color: #ffff00;
+            color: #ffff00;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
         }
     </style>
 </head>
@@ -87,21 +98,32 @@
 
     <header>
         <h1>Web <span>Development</span></h1>
-        <p style="color: #666;">// Soluciones Front-end y Back-end de alto nivel //</p>
+        <p class="subtitle">// Transformando ideas en interfaces digitales //</p>
     </header>
 
-    <div class="container">
-        <p>En <strong>VytexX</strong> construimos interfaces que no solo se ven bien, sino que están optimizadas para la velocidad y la experiencia del usuario.</p>
-        
-        <div class="tech-list">
-            <div class="tech-item">HTML5 / CSS3</div>
-            <div class="tech-item">JavaScript</div>
-            <div class="tech-item">React / Next.js</div>
-            <div class="tech-item">UI/UX Design</div>
+    <div class="content">
+        <div class="service-box">
+            <h3>Diseño UX/UI</h3>
+            <p>Creamos experiencias visuales impactantes y fáciles de usar, enfocadas en la identidad de tu marca.</p>
         </div>
 
-        <a href="index.html" class="btn-back">← VOLVER AL INICIO</a>
+        <div class="service-box">
+            <h3>Webs Auto-gestionables</h3>
+            <p>Desarrollamos sitios donde tú tienes el control total del contenido, sin necesidad de saber programar.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Optimización SEO</h3>
+            <p>No solo hacemos la página, nos aseguramos de que Google la encuentre y tus clientes lleguen a ti.</p>
+        </div>
     </div>
+
+    <div class="tech-stack">
+        <h2 style="color: #ffff00;">Stack Tecnológico</h2>
+        <p>HTML5 · CSS3 · JavaScript · React · Node.js · GitHub</p>
+    </div>
+
+    <a href="index.html" class="btn-back">← VOLVER AL PANEL</a>
 
 </body>
 </html>
