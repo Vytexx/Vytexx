@@ -105,4 +105,72 @@
             background: rgba(0, 229, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
         }
+
+        .card h3 {
+            color: #00e5ff;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .card::before {
+            content: "/>";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-family: monospace;
+            color: rgba(0, 229, 255, 0.3);
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <h1>Vytex<span>X</span></h1>
+        <button class="enter-btn" onclick="entrar()">Entrar</button>
+    </div>
+
+    <div id="main-content">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Nuestros Servicios</h2>
+        <p style="color: #666; font-family: monospace;">// Selecciona una categoría para explorar</p>
         
+        <div class="services-container">
+            <div class="card" onclick="alert('Abriendo Web Development...')">
+                <h3>Web Development</h3>
+                <p>Diseño y construcción de sitios web modernos, responsivos y optimizados para el futuro digital.</p>
+            </div>
+
+            <div class="card" onclick="alert('Abriendo Coding...')">
+                <h3>Coding</h3>
+                <p>Desarrollo de software a medida y automatización de procesos utilizando lenguajes de última generación.</p>
+            </div>
+
+            <div class="card" onclick="alert('Abriendo Architecture...')">
+                <h3>Architecture</h3>
+                <p>Estructuración de sistemas complejos y escalables, asegurando una base sólida para cualquier proyecto tech.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function entrar() {
+            const splash = document.getElementById('splash-screen');
+            const main = document.getElementById('main-content');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+                main.style.display = 'flex';
+                setTimeout(() => { main.style.opacity = '1'; }, 50);
+            }, 800);
+        }
+    </script>
+</body>
+</html>
