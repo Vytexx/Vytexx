@@ -37,9 +37,34 @@
             text-transform: uppercase;
         }
 
-        #splash-screen h1 span {
-            color: #00e5ff; /* Color tecnológico para la X final */
-        }
+      #splash-screen h1 span {
+    color: #00e5ff;
+    text-shadow: 
+        0 0 5px #00e5ff,
+        0 0 10px #00e5ff,
+        0 0 20px #00e5ff,
+        0 0 40px #0081a7; /* Brillo de fondo */
+    animation: titileo 1.5s infinite alternate;
+}
+
+/* La magia del titileo */
+@keyframes titileo {
+    0%, 100% {
+        opacity: 1;
+    }
+    33% {
+        opacity: 0.8;
+    }
+    66% {
+        opacity: 1;
+    }
+    67% {
+        opacity: 0.2; /* El "fallo" del neón */
+    }
+    68% {
+        opacity: 1;
+    }
+}
 
         .enter-btn {
             padding: 12px 30px;
