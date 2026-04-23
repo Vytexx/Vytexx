@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VytexX | Tech Experience</title>
+    <title>VytexX | Volteo Cyberpunk</title>
     <style>
         body, html {
             margin: 0; padding: 0;
@@ -20,7 +20,6 @@
             justify-content: center; align-items: center;
             background-color: #000;
             z-index: 1000;
-            transition: opacity 1s ease;
         }
 
         /* Contenedor principal de las letras */
@@ -44,7 +43,7 @@
             to { opacity: 1; }
         }
 
-        /* --- LA X ESPECIAL CON NEÓN AMARILLO QUE SE CAE --- */
+        /* --- LA X ESPECIAL CON NEÓN AMARILLO QUE SE VOLTEA Y SE CAE --- */
         .neon-x {
             color: #ffff00;
             text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700;
@@ -54,33 +53,20 @@
             /* CADENA DE ANIMACIONES: 
                1. Aparece (fadeInChar)
                2. Titila un rato (flicker)
-               3. Se cae (fallDown) --> Empieza a los 2.5s */
-            animation: fadeInChar 0.1s forwards, flicker 1s infinite alternate 1s, fallDown 1s forwards 2.5s;
-        }
-
-        /* Rastro de la X al caer */
-        .neon-x::after {
-            content: 'X';
-            position: absolute;
-            left: 0; top: 0;
-            opacity: 0;
-            color: rgba(255, 255, 0, 0.2);
-            text-shadow: 0 0 10px rgba(255, 255, 0, 0.1);
-            transform: skew(-20deg) translateX(-10px);
-            animation: fallTrail 1s forwards 2.6s;
+               3. SE VOLTEA (tumbleDown) --> Empieza a los 2.5s */
+            animation: fadeInChar 0.1s forwards, flicker 1s infinite alternate 1s, tumbleDown 1.5s forwards 2.5s;
         }
 
         /* Animación para que caiga la X */
-        @keyframes fallDown {
+        @keyframes tumbleDown {
             0% { transform: rotate(0deg); opacity: 1; text-shadow: 0 0 15px #ffff00; }
-            30% { transform: rotate(15deg); text-shadow: 0 0 5px #ffcc00; } /* Se empieza a apagar */
-            100% { transform: rotate(90deg) translateY(100px); opacity: 0; text-shadow: none; } /* Cae y desaparece */
-        }
-
-        /* Rastro Cyberpunk de la caída */
-        @keyframes fallTrail {
-            0% { opacity: 0; transform: skew(-20deg) translateX(-10px); }
-            100% { opacity: 1; transform: skew(-20deg) translateY(200px) translateX(-50px); }
+            10% { transform: rotate(15deg); text-shadow: 0 0 5px #ffcc00; } /* Se empieza a apagar y a inclinar */
+            25% { transform: rotate(45deg); opacity: 1; }
+            45% { transform: rotate(85deg); opacity: 0.8; } /* Casi acostada */
+            55% { transform: rotate(92deg); opacity: 0.7; } /* Rebote */
+            65% { transform: rotate(90deg) translateY(10px); opacity: 0.5; } /* Rebote */
+            80% { transform: rotate(90deg) translateY(50px); opacity: 0.3; } /* Cae un poco */
+            100% { transform: rotate(90deg) translateY(200px); opacity: 0; text-shadow: none; } /* Cae y desaparece */
         }
 
         /* Titileo rápido antes de la caída */
@@ -100,7 +86,7 @@
             letter-spacing: 4px;
             transition: 0.4s;
             text-transform: uppercase;
-            animation: fadeInChar 1s forwards 3.5s; /* Aparece después de que la X se cae */
+            animation: fadeInChar 1s forwards 4s; /* Aparece después de que la X se cae */
         }
 
         .btn-entrar:hover {
