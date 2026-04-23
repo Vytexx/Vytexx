@@ -20,9 +20,10 @@
             justify-content: center; align-items: center;
             background-color: #000;
             z-index: 1000;
+            transition: opacity 1s ease;
         }
 
-        /* Contenedor del nombre para que no se mueva */
+        /* Contenedor principal de las letras */
         .typing-container {
             display: flex;
             font-size: clamp(3rem, 10vw, 6rem);
@@ -30,33 +31,66 @@
             letter-spacing: 12px;
             margin-bottom: 30px;
             text-transform: uppercase;
+            position: relative; /* Importante para el rastro */
         }
 
-        /* Estilo base de cada letra (invisible al inicio) */
+        /* Estilo base de cada letra (aparecen una por una) */
         .char {
             opacity: 0;
             animation: fadeInChar 0.1s forwards;
         }
 
-        /* Animación para que aparezcan */
         @keyframes fadeInChar {
             to { opacity: 1; }
         }
 
-        /* La X especial con Neón Amarillo */
+        /* --- LA X ESPECIAL CON NEÓN AMARILLO QUE SE CAE --- */
         .neon-x {
             color: #ffff00;
             text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700;
-            animation: fadeInChar 0.1s forwards, flicker 2s infinite 1.5s; /* Empieza a titilar después de aparecer */
+            position: relative;
+            transform-origin: bottom right; /* Eje de rotación abajo a la derecha */
+            
+            /* CADENA DE ANIMACIONES: 
+               1. Aparece (fadeInChar)
+               2. Titila un rato (flicker)
+               3. Se cae (fallDown) --> Empieza a los 2.5s */
+            animation: fadeInChar 0.1s forwards, flicker 1s infinite alternate 1s, fallDown 1s forwards 2.5s;
         }
 
+        /* Rastro de la X al caer */
+        .neon-x::after {
+            content: 'X';
+            position: absolute;
+            left: 0; top: 0;
+            opacity: 0;
+            color: rgba(255, 255, 0, 0.2);
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.1);
+            transform: skew(-20deg) translateX(-10px);
+            animation: fallTrail 1s forwards 2.6s;
+        }
+
+        /* Animación para que caiga la X */
+        @keyframes fallDown {
+            0% { transform: rotate(0deg); opacity: 1; text-shadow: 0 0 15px #ffff00; }
+            30% { transform: rotate(15deg); text-shadow: 0 0 5px #ffcc00; } /* Se empieza a apagar */
+            100% { transform: rotate(90deg) translateY(100px); opacity: 0; text-shadow: none; } /* Cae y desaparece */
+        }
+
+        /* Rastro Cyberpunk de la caída */
+        @keyframes fallTrail {
+            0% { opacity: 0; transform: skew(-20deg) translateX(-10px); }
+            100% { opacity: 1; transform: skew(-20deg) translateY(200px) translateX(-50px); }
+        }
+
+        /* Titileo rápido antes de la caída */
         @keyframes flicker {
             0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 15px #ffff00; }
             20%, 24%, 55% { opacity: 0.4; text-shadow: none; }
         }
 
         .btn-entrar {
-            opacity: 0; /* Oculto hasta que termine de escribir */
+            opacity: 0;
             padding: 15px 45px;
             border: 2px solid #ffff00;
             background: transparent;
@@ -65,7 +99,8 @@
             font-weight: bold;
             letter-spacing: 4px;
             transition: 0.4s;
-            animation: fadeInChar 1s forwards 1.2s; /* Aparece después de las letras */
+            text-transform: uppercase;
+            animation: fadeInChar 1s forwards 3.5s; /* Aparece después de que la X se cae */
         }
 
         .btn-entrar:hover {
@@ -74,7 +109,7 @@
             box-shadow: 0 0 25px rgba(255, 255, 0, 0.6);
         }
 
-        /* Estilos del contenido (igual que antes) */
+        /* Estilos del contenido (igual que antes, en amarillo) */
         #main-content {
             display: none;
             min-height: 100vh;
@@ -82,6 +117,8 @@
             justify-content: center;
             align-items: center;
             padding: 40px;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
 
         .grid-servicios {
@@ -105,9 +142,11 @@
             border-color: #ffff00;
             background: rgba(255, 255, 0, 0.05);
             transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 255, 0, 0.1);
         }
 
-        .card h3 { color: #ffff00; }
+        .card h3 { color: #ffff00; margin-bottom: 10px;}
+        .card p { color: #888; margin: 0;}
     </style>
 </head>
 <body>
@@ -125,7 +164,7 @@
     </div>
 
     <div id="main-content">
-        <h2 style="color:#ffff00;">Unidades de Negocio</h2>
+        <h2 style="color:#ffff00; font-size: 2.5rem;">Unidades de Negocio</h2>
         <div class="grid-servicios">
             <div class="card"><h3>Web Development</h3><p>Interfaces disruptivas.</p></div>
             <div class="card"><h3>Coding</h3><p>Algoritmos avanzados.</p></div>
@@ -140,7 +179,7 @@
                 document.getElementById('splash').style.display = 'none';
                 document.getElementById('main-content').style.display = 'flex';
                 setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
-            }, 800);
+            }, 1000);
         }
     </script>
 </body>
