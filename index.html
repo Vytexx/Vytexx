@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VytexX | Volteo Cyberpunk</title>
+    <title>VytexX | Tech Experience</title>
     <style>
         body, html {
             margin: 0; padding: 0;
@@ -22,7 +22,6 @@
             z-index: 1000;
         }
 
-        /* Contenedor principal de las letras */
         .typing-container {
             display: flex;
             font-size: clamp(3rem, 10vw, 6rem);
@@ -30,10 +29,8 @@
             letter-spacing: 12px;
             margin-bottom: 30px;
             text-transform: uppercase;
-            position: relative; /* Importante para el rastro */
         }
 
-        /* Estilo base de cada letra (aparecen una por una) */
         .char {
             opacity: 0;
             animation: fadeInChar 0.1s forwards;
@@ -43,36 +40,37 @@
             to { opacity: 1; }
         }
 
-        /* --- LA X ESPECIAL CON NEÓN AMARILLO QUE SE VOLTEA Y SE CAE --- */
+        /* --- LA X QUE SE CAE Y SE QUEDA --- */
         .neon-x {
             color: #ffff00;
             text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700;
-            position: relative;
-            transform-origin: bottom right; /* Eje de rotación abajo a la derecha */
-            
-            /* CADENA DE ANIMACIONES: 
-               1. Aparece (fadeInChar)
-               2. Titila un rato (flicker)
-               3. SE VOLTEA (tumbleDown) --> Empieza a los 2.5s */
-            animation: fadeInChar 0.1s forwards, flicker 1s infinite alternate 1s, tumbleDown 1.5s forwards 2.5s;
+            display: inline-block;
+            transform-origin: bottom right;
+            /* La animación de parpadeo (flicker) nunca se detiene */
+            animation: 
+                fadeInChar 0.1s forwards, 
+                flicker 1.5s infinite alternate, 
+                caidaFisica 1.2s cubic-bezier(0.47, 0, 0.745, 0.715) forwards 2s;
         }
 
-        /* Animación para que caiga la X */
-        @keyframes tumbleDown {
-            0% { transform: rotate(0deg); opacity: 1; text-shadow: 0 0 15px #ffff00; }
-            10% { transform: rotate(15deg); text-shadow: 0 0 5px #ffcc00; } /* Se empieza a apagar y a inclinar */
-            25% { transform: rotate(45deg); opacity: 1; }
-            45% { transform: rotate(85deg); opacity: 0.8; } /* Casi acostada */
-            55% { transform: rotate(92deg); opacity: 0.7; } /* Rebote */
-            65% { transform: rotate(90deg) translateY(10px); opacity: 0.5; } /* Rebote */
-            80% { transform: rotate(90deg) translateY(50px); opacity: 0.3; } /* Cae un poco */
-            100% { transform: rotate(90deg) translateY(200px); opacity: 0; text-shadow: none; } /* Cae y desaparece */
+        /* Animación: Se voltea 90 grados y se queda ahí */
+        @keyframes caidaFisica {
+            0% { transform: rotate(0deg); }
+            60% { transform: rotate(95deg); } /* Rebota un poquito más de 90 */
+            80% { transform: rotate(88deg); } /* Vuelve */
+            100% { transform: rotate(90deg) translateY(10px); } /* Queda perfectamente acostada */
         }
 
-        /* Titileo rápido antes de la caída */
+        /* Titileo constante (se mantiene incluso después de caer) */
         @keyframes flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 15px #ffff00; }
-            20%, 24%, 55% { opacity: 0.4; text-shadow: none; }
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { 
+                opacity: 1; 
+                text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700; 
+            }
+            20%, 22%, 24%, 55% { 
+                opacity: 0.3; 
+                text-shadow: none; 
+            }
         }
 
         .btn-entrar {
@@ -85,8 +83,8 @@
             font-weight: bold;
             letter-spacing: 4px;
             transition: 0.4s;
-            text-transform: uppercase;
-            animation: fadeInChar 1s forwards 4s; /* Aparece después de que la X se cae */
+            margin-top: 50px;
+            animation: fadeInChar 1s forwards 3.2s; /* Aparece después de la caída */
         }
 
         .btn-entrar:hover {
@@ -95,7 +93,7 @@
             box-shadow: 0 0 25px rgba(255, 255, 0, 0.6);
         }
 
-        /* Estilos del contenido (igual que antes, en amarillo) */
+        /* Contenido Principal (Igual que antes) */
         #main-content {
             display: none;
             min-height: 100vh;
@@ -122,17 +120,19 @@
             border-radius: 20px;
             text-align: center;
             transition: 0.4s;
+            text-decoration: none;
+            color: white;
+            display: block;
         }
 
         .card:hover {
             border-color: #ffff00;
             background: rgba(255, 255, 0, 0.05);
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 255, 0, 0.1);
         }
 
-        .card h3 { color: #ffff00; margin-bottom: 10px;}
-        .card p { color: #888; margin: 0;}
+        .card h3 { color: #ffff00; margin: 0 0 10px 0; }
+        .card p { color: #888; margin: 0; }
     </style>
 </head>
 <body>
@@ -144,17 +144,26 @@
             <span class="char" style="animation-delay: 0.3s;">t</span>
             <span class="char" style="animation-delay: 0.4s;">e</span>
             <span class="char" style="animation-delay: 0.5s;">x</span>
-            <span class="char neon-x" style="animation-delay: 0.7s;">X</span>
+            <span class="char neon-x">X</span>
         </div>
         <button class="btn-entrar" onclick="activar()">Entrar</button>
     </div>
 
     <div id="main-content">
-        <h2 style="color:#ffff00; font-size: 2.5rem;">Unidades de Negocio</h2>
+        <h2 style="color:#ffff00; font-size: 2.5rem; margin-bottom: 40px;">Unidades de Negocio</h2>
         <div class="grid-servicios">
-            <div class="card"><h3>Web Development</h3><p>Interfaces disruptivas.</p></div>
-            <div class="card"><h3>Coding</h3><p>Algoritmos avanzados.</p></div>
-            <div class="card"><h3>Architecture</h3><p>Infraestructura digital.</p></div>
+            <a href="web.html" class="card">
+                <h3>Web Development</h3>
+                <p>Interfaces disruptivas.</p>
+            </a>
+            <a href="coding.html" class="card">
+                <h3>Coding</h3>
+                <p>Algoritmos avanzados.</p>
+            </a>
+            <a href="architecture.html" class="card">
+                <h3>Architecture</h3>
+                <p>Infraestructura digital.</p>
+            </a>
         </div>
     </div>
 
