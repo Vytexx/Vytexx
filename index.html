@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VytexX | Yellow Edition</title>
+    <title>VytexX | Tech Experience</title>
     <style>
         body, html {
             margin: 0; padding: 0;
             background-color: #050505;
             color: white;
             font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         #splash {
@@ -20,35 +20,43 @@
             justify-content: center; align-items: center;
             background-color: #000;
             z-index: 1000;
-            transition: opacity 0.8s ease;
         }
 
-        #splash h1 {
+        /* Contenedor del nombre para que no se mueva */
+        .typing-container {
+            display: flex;
             font-size: clamp(3rem, 10vw, 6rem);
-            letter-spacing: 12px;
             font-weight: 800;
+            letter-spacing: 12px;
             margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
-        /* CAMBIO A AMARILLO NEÓN */
-        #splash h1 span {
-            color: #ffff00; 
-            text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700, 0 0 50px #ffae00;
-            animation: flicker 2s infinite alternate;
+        /* Estilo base de cada letra (invisible al inicio) */
+        .char {
+            opacity: 0;
+            animation: fadeInChar 0.1s forwards;
+        }
+
+        /* Animación para que aparezcan */
+        @keyframes fadeInChar {
+            to { opacity: 1; }
+        }
+
+        /* La X especial con Neón Amarillo */
+        .neon-x {
+            color: #ffff00;
+            text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700;
+            animation: fadeInChar 0.1s forwards, flicker 2s infinite 1.5s; /* Empieza a titilar después de aparecer */
         }
 
         @keyframes flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { 
-                opacity: 1; 
-                text-shadow: 0 0 15px #ffff00, 0 0 30px #ffd700; 
-            }
-            20%, 24%, 55% { 
-                opacity: 0.4; 
-                text-shadow: none; 
-            }
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 15px #ffff00; }
+            20%, 24%, 55% { opacity: 0.4; text-shadow: none; }
         }
 
         .btn-entrar {
+            opacity: 0; /* Oculto hasta que termine de escribir */
             padding: 15px 45px;
             border: 2px solid #ffff00;
             background: transparent;
@@ -57,6 +65,7 @@
             font-weight: bold;
             letter-spacing: 4px;
             transition: 0.4s;
+            animation: fadeInChar 1s forwards 1.2s; /* Aparece después de las letras */
         }
 
         .btn-entrar:hover {
@@ -65,14 +74,13 @@
             box-shadow: 0 0 25px rgba(255, 255, 0, 0.6);
         }
 
+        /* Estilos del contenido (igual que antes) */
         #main-content {
             display: none;
             min-height: 100vh;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 1s ease;
             padding: 40px;
         }
 
@@ -82,12 +90,6 @@
             gap: 30px;
             max-width: 1100px;
             width: 100%;
-            margin-top: 50px;
-        }
-
-        .card-link {
-            text-decoration: none;
-            color: inherit;
         }
 
         .card {
@@ -99,67 +101,45 @@
             transition: 0.4s;
         }
 
-        /* HOVER EN AMARILLO */
         .card:hover {
             border-color: #ffff00;
             background: rgba(255, 255, 0, 0.05);
             transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(255, 255, 0, 0.15);
         }
 
-        .card h3 {
-            color: #ffff00;
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: #888;
-        }
+        .card h3 { color: #ffff00; }
     </style>
 </head>
 <body>
 
     <div id="splash">
-        <h1>Vytex<span>X</span></h1>
-        <button class="btn-entrar" onclick="activar()">ENTRAR</button>
+        <div class="typing-container">
+            <span class="char" style="animation-delay: 0.1s;">V</span>
+            <span class="char" style="animation-delay: 0.2s;">y</span>
+            <span class="char" style="animation-delay: 0.3s;">t</span>
+            <span class="char" style="animation-delay: 0.4s;">e</span>
+            <span class="char" style="animation-delay: 0.5s;">x</span>
+            <span class="char neon-x" style="animation-delay: 0.7s;">X</span>
+        </div>
+        <button class="btn-entrar" onclick="activar()">Entrar</button>
     </div>
 
     <div id="main-content">
-        <h2 style="font-size: 2.8rem; margin-bottom: 0;">Unidades de Negocio</h2>
-        <p style="color: #444; font-family: monospace;">// VytexX Yellow Protocol // Active</p>
-
+        <h2 style="color:#ffff00;">Unidades de Negocio</h2>
         <div class="grid-servicios">
-            <a href="web.html" class="card-link">
-                <div class="card">
-                    <h3>Web Development</h3>
-                    <p>Interfaces disruptivas y optimización de código.</p>
-                </div>
-            </a>
-            <a href="coding.html" class="card-link">
-                <div class="card">
-                    <h3>Coding</h3>
-                    <p>Algoritmos avanzados y automatización.</p>
-                </div>
-            </a>
-            <a href="architecture.html" class="card-link">
-                <div class="card">
-                    <h3>Architecture</h3>
-                    <p>Diseño de infraestructura digital.</p>
-                </div>
-            </a>
+            <div class="card"><h3>Web Development</h3><p>Interfaces disruptivas.</p></div>
+            <div class="card"><h3>Coding</h3><p>Algoritmos avanzados.</p></div>
+            <div class="card"><h3>Architecture</h3><p>Infraestructura digital.</p></div>
         </div>
     </div>
 
     <script>
         function activar() {
-            const splash = document.getElementById('splash');
-            const main = document.getElementById('main-content');
-            splash.style.opacity = '0';
+            document.getElementById('splash').style.opacity = '0';
             setTimeout(() => {
-                splash.style.display = 'none';
-                main.style.display = 'flex';
-                setTimeout(() => { main.style.opacity = '1'; }, 50);
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('main-content').style.display = 'flex';
+                setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
             }, 800);
         }
     </script>
